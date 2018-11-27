@@ -1,5 +1,6 @@
 # Write your code here!
 require "pry"
+
 def game_hash
   {
     home: {
@@ -226,5 +227,6 @@ def long_name_steals_a_ton?
   end
   name_with_steal == player_with_longest_name
 end
+
 
 
