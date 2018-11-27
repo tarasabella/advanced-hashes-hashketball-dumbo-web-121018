@@ -224,8 +224,8 @@ def long_name_steals_a_ton?
       if value[:steals] > steal_number
         steal_number = value[:steals]
         name_with_steal = name
-      end
-    end
+      end 
+    end 
   end
   name_with_steal == player_with_longest_name
 end
