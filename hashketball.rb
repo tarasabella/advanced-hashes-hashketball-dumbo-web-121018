@@ -1,10 +1,7 @@
 # Write your code here!
 require "pry"
-
 def game_hash
-  #define game_hash method with 2 top level keys: home & away 
   {
-    #home key has 3 hashes 
     home: {
       team_name: "Brooklyn Nets",
       colors: ["Black", "White"],
@@ -120,13 +117,13 @@ def game_hash
   }
 end
 
-def num_points_scored(player_name)
-  player = find_the_player(player_name)
+def num_points_scored(name)
+  player = find_the_player(name)
   player.fetch(:points)
 end
 
-def shoe_size(player_name)
-  player = find_the_player(player_name)
+def shoe_size(name)
+  player = find_the_player(name)
   player.fetch(:shoe)
 end
 
@@ -229,6 +226,5 @@ def long_name_steals_a_ton?
   end
   name_with_steal == player_with_longest_name
 end
-
 
 
