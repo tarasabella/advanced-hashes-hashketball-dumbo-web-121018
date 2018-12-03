@@ -118,44 +118,66 @@ def game_hash
   }
 end
 
+***def player_by_number(integer)
+  game_hash[:home][:players] >> [:away][:players]
+  
+  # takes in a number and returns the  name of the player associated with the player 
+#merging hashes togetehr 
+
+
 def num_points_scored(name)
   player = find_the_player(name)
   player.fetch(:points)
 end
+
+#method takes players name as argument and finds points scored from the stats key 
 
 def shoe_size(name)
   player = find_the_player(name)
   player.fetch(:shoe)
 end
 
+#method takes player name as argument and finds shoe size from its stats key 
+
 def team_colors(team_name)
   team = find_the_team(team_name)
   team.fetch(:colors)
 end
 
+#method takes team name as argument and finds the team names colors from the nested stats key with fetch and returns an array of that teams colors 
+
 def team_names
   teams.map{|t| t.fetch(:team_name)}
 end
 
+#.map/collect are used to iterate over the hash and return a new value
+#operates on the game hash to return an array of team names 
+
 def player_numbers(team_name)
   find_the_team(team_name)[:players].map{ |player_name, stats| stats[:number] }
 end
+# method takes players name as argument and returns their stats by using .map method to iterate over each team players to return an array of jersey numbers 
 
 def player_stats(player_name)
   find_the_player(player_name)
 end
 
+#method takes player name as argument and returns a hash of that players stats 
+
 def big_shoe_rebounds
   player_biggest_shoe_size.fetch(:rebounds)
 end
 
+#retrive rebound stats 
 def teams
   game_hash.values
 end
 
+#return players number of rebounds with return values 
 def players
   game_hash[:home][:players].merge(game_hash[:away][:players])
 end
+
 
 def find_the_team(team_name)
   teams.find {|team| team.fetch(:team_name) == team_name}
@@ -168,6 +190,8 @@ end
 def player_biggest_shoe_size
   players.max_by{|player, stats| stats.fetch(:shoe)}[1]
 end
+
+#returns rebound value for the player with biggest shoe size 
 
 def most_points_scored
    most_points = 0
