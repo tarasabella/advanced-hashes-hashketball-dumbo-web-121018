@@ -1,6 +1,9 @@
 # Write your code here!
 require "pry"
-
+#our method is a hash that contains infor nested within it about the team 
+#the upper level is our home & away hash 
+#home and away hash contain info about the team name, team color, and players 
+#the players hash contains stats about each player 
 def game_hash
   {
     home: {
@@ -118,56 +121,126 @@ def game_hash
   }
 end
 
+binding.pry
+
 def num_points_scored(name)
-  player = find_the_player(name)
-  player.fetch(:points)
-end
-
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player_name, player_data|
+      if player_name == name 
+        #checks each name to ensure that it matches
+  return player_data[:points]
+      end
+    end
+  end
+end 
+#define method that takes players name as argument and finds points scored from the stats key within the player hash
+#iterate over each element of the game hash with .each to access the players points data 
+#return the number of points for each particualr player 
 def shoe_size(name)
-  player = find_the_player(name)
-  player.fetch(:shoe)
-end
+  game_hash.each do |location, team_data|
+    team_data[:player].each do |player_name, player_data|
+      if player_name == name
+        return player_data[:shoe]
+      end 
+    end
+  end 
+end 
+  
+#define method that takes player name as argument and finds shoe size from its stats key based on the name of the player 
+#iterate down to the shoe size level & return shoe size for the player 
 
-def team_colors(team_name)
-  team = find_the_team(team_name)
-  team.fetch(:colors)
-end
+def team_colors(name)
+  game_hash.each do |location, team_data|
+  if team_data[:team_name] == name
+    return team_data[:colors]
+      team_colors
+      end 
+    end
+  end 
+#method takes team name as argument and finds the team names colors from the nested stats key with fetch and returns an array of that teams colors 
 
 def team_names
-  teams.map{|t| t.fetch(:team_name)}
+  game_hash.collect do |location, team_data|
+    team_data[:team_name]
+      end 
+    end 
+      
+#.map/collect are used to iterate over the hash and return a new value
+#operates on the game hash to return an array of team names 
+
+def player_numbers(name)
+  player_numbers = []
+  game_hash.each do |location, team_data|
+    if team_data[:team_name] == name 
+      team_data[:players].each do |player_name, player_data|
+      player_numbers << player_data[:number]
+      #shovel player data & numbers info to the player_numbers array that was created 
+    end 
+  end 
+end 
+    return player_numbers
+  end 
+    
+# method takes players name as argument and returns their stats 
+#using .each method to iterate over each team players to return an array of jersey numbers 
+
+
+def player_stats(name)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player_name, player_data|
+    if player_name == name 
+      #check to see that the player name matches the name passed intp the methods as an argument 
+      return player_data
+      end
+    end 
+  end 
 end
 
-def player_numbers(team_name)
-  find_the_team(team_name)[:players].map{ |player_name, stats| stats[:number] }
-end
-
-def player_stats(player_name)
-  find_the_player(player_name)
-end
+#method takes player name as argument and returns a hash of that players stats 
+#access player data through iterating with each and returns the players stats based on the name 
 
 def big_shoe_rebounds
-  player_biggest_shoe_size.fetch(:rebounds)
-end
+  #use integer as a comparison 
+  shoe_size = 0
+  #trying to find value of certain rebound 
+  rebound = nil 
+  game_hash.do each |location, team_data|
+  team_data[:players].each do |player_name, player_data|
+    if player_data[:shoe] > shoe_size
+      shoe_size = player_data[:shoe]
+      #find player with largest shoe size 
+      rebound = value[:rebounds]
+      #return that player's rebounds 
+      return rebound
+    end 
+  end 
+end 
+  
 
-def teams
-  game_hash.values
-end
 
-def players
-  game_hash[:home][:players].merge(game_hash[:away][:players])
-end
 
-def find_the_team(team_name)
-  teams.find {|team| team.fetch(:team_name) == team_name}
-end
+def player_by_number(number)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |player, player_data|
+      
+      if player_data[:number] == number 
+      
+        return player
+      end 
+    end 
+  end 
+end 
+player_by_number(33)
 
-def find_the_player(name)
-  players.fetch(name)
-end
+        
+    
+        #define method that takes a number in as an argument and returns the name pf the player associated with that number 
+        #iterate with each to access the player data 
 
-def player_biggest_shoe_size
-  players.max_by{|player, stats| stats.fetch(:shoe)}[1]
-end
+#returns rebound value for the player with biggest shoe size 
+# Bonus Questions:
+
+# Which player has the most points? Call the method most_points_scored.
 
 def most_points_scored
    most_points = 0
@@ -182,6 +255,7 @@ def most_points_scored
    player
 end
 
+# Which team has the most points? Call the method winning_team.
 def winning_team
   home_team = 0
   away_team = 0
@@ -200,6 +274,7 @@ def winning_team
   end
 end
 
+# Which player has the longest name? Call the method player_with_longest_name.
 
 def player_with_longest_name
   longest = 0
@@ -214,6 +289,8 @@ def player_with_longest_name
   player_name
 end
 end 
+
+# Write a method that returns true if the player with the longest name had the most steals. Call the method long_name_steals_a_ton?.
 def long_name_steals_a_ton?
   name_with_steal = nil
   steal_number = 0
@@ -227,6 +304,7 @@ def long_name_steals_a_ton?
   end
   name_with_steal == player_with_longest_name
 end
+# map & seleect differneces 
 
-
+#refractor (different iterators)
 
